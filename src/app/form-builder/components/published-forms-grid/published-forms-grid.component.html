@@ -1,0 +1,58 @@
+
+<div class="form-builder-main">
+    <div class="row form-builder-hdr"> <!--Header Start-->
+        <div class="col-sm-12">
+            <div class="col-sm-4 rdtextAlignLeft">
+                <h3 class="form-heading">Published Forms</h3>
+            </div>
+            <div class="col-sm-8 rdtextAlignRight"> 
+                <button class="buttonClass fb-button-noborder" type="button" [routerLink]="['../field-library']">Go To Library</button> &nbsp; <button class="buttonClass fb-btn-primary" type="button" [routerLink]="['../form-editor']">Create New Form</button>
+            </div>
+        </div>
+    </div>
+    <!--Header close-->
+
+    <div class="row">
+        <div class="col-md-12 table-responsive pb-table-height">
+            <table class="table pbForm-table-grid-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th> Name </th>
+                        <th> Instruction </th>
+                        <th> Category </th>
+                        <th> Sub-Category </th>
+                        <th> Status </th>
+                        <th> Created By/On </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let fbform of fbForms">
+                        <td>
+                            <div class="fb-imgForm">
+                                <img alt="No Image Available" src="{{fbform.form_img}}">
+                                <!--<i class="{{fbform.upload_icon}} fbimg-upload" aria-hidden="true"></i>-->
+                            </div>
+                        </td>
+                        <td>
+                            <p class="fb-name"> {{fbform.name}} </p>
+                        </td>
+                        <td> <p class="fb-ins"> {{fbform.instruction}} </p> </td>
+                        <td> <p class="fb-cat"> {{fbform.category}} </p> </td>
+                        <td> <p class="fb-subcat"> {{fbform.subcategory}} <strong>{{fbform.bold}}</strong> </p> </td>
+                        <td>
+                            <p class="fb-name"> - </p>
+                        </td>
+                        <td>
+                            <p class="fb-name"> - </p>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+</div>
+

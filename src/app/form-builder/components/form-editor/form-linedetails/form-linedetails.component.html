@@ -1,0 +1,52 @@
+<!-- {{layoutList |json}} -->
+<div class="form-linedetail" *ngFor="let data of layoutList">
+    <div class="row">
+        <!-- {{data |json}} -->
+        <div *ngFor="let item of data.control"   [ngClass]=" data.col ==1 ? 'col-sm-12' : data.col==2 ? 'col-sm-6' :'col-sm-4'">
+            <div class="example-list">
+                <!-- {{item |json}} -->
+                <ng-container [ngSwitch]="item.controlType">
+                    <ng-container *ngSwitchCase="controlType.textbox">
+
+                        <p (click)="selected(item,data)">
+                            textbox
+                        </p>
+                    </ng-container>
+               
+                    <ng-container *ngSwitchCase="controlType.numaricTextbox">
+                        <p>
+                            numaricTextbox
+                        </p>
+                    </ng-container>
+               
+                    <ng-container *ngSwitchCase="controlType.singleDropdown">
+
+                        singleDropdown
+                    </ng-container>
+               
+                    <ng-container *ngSwitchCase="controlType.multiDropdown">
+                        textarea
+                    </ng-container>
+               
+                    <ng-container *ngSwitchCase="controlType.textarea">
+                        textarea
+                    </ng-container>
+               
+                    <ng-container *ngSwitchCase="controlType.datepicker">
+                        datepicker
+                    </ng-container>
+                
+                    <ng-container *ngSwitchCase="controlType.label">
+                        label
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+    <!-- <div class="row">
+        <div class="col-sm-12">
+
+        </div>
+    </div> -->
+</div>

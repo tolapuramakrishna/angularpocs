@@ -1,0 +1,49 @@
+<div class="form-editor">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="title-bar">
+                <h4>Form Editor</h4>
+                <div class="action-sec">
+                    <button class="btn btn-primary" [routerLink]="['../published-forms']">Cancel</button>
+                    <button class="btn btn-primary">SAVE</button>
+                    <button class="btn btn-primary">PUBLISH</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3 p-0">
+            <div class="field-library">
+                <ng-container>
+                    <field-library [controls]="controlsList" [isDraggable]="isDraggable"></field-library>
+                </ng-container>
+                <!-- <div *ngFor="let lbl of controlsList.dropdown" [cdkDragData]="lbl" cdkDrag  [cdkDragDisabled]="!isDraggable">
+                    <p >{{lbl.name}}
+                        <span (click)="viewcontrol(lbl)" >
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                    </p>
+                    <div *cdkDragPlaceholder class="field-placeholder"></div>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-sm-6 ">
+            <form-header></form-header>
+            <br />
+            <form-linedetails [layoutList]="layoutList"></form-linedetails>
+           
+                <div cdkDropList id="doneList" class=" draggable-block"
+                    (cdkDropListDropped)="drop($event)">
+
+                    <div *cdkDragPlaceholder class="field-placeholder">drop here</div>
+
+                </div>
+
+        </div>
+
+        <div class="col-sm-3 p-0">
+            <editor-rightpanel></editor-rightpanel>
+        </div>
+    </div>
+</div>

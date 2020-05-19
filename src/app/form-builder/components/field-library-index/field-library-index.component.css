@@ -1,0 +1,23 @@
+.library-block {
+    min-height: 600px;
+    padding: 0px 15px;
+}
+
+
+
+    .library-block .title-bar {
+        background: #fff;
+        padding: 10px;
+        border-bottom: 1px solid #d0d0d0;
+        margin: 0px -15px;
+    }
+
+        .library-block .title-bar h4 {
+            float: left;
+            font-weight: bold;
+        }
+
+        .library-block .title-bar .action-sec {
+            text-align: right;
+        }
+

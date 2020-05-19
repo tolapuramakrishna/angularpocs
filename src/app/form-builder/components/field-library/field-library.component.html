@@ -1,0 +1,113 @@
+    <h4>Field Library</h4>
+   
+    <button (click)="Addcontrol()">Add Control</button>
+    <mat-accordion *ngIf="controls">
+        <mat-expansion-panel style="margin-top:10px">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Dropdowns
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div 
+            >
+            <div  cdkDropList
+            id="todoList"
+            cdkDropListConnectedTo="doneList"
+            
+             [cdkDragData]="ddl" cdkDrag   [cdkDragDisabled]="!isDraggable"
+             *ngFor="let ddl of controls.dropdown"
+             >
+                <p >{{ddl.name}}
+                <span (click)="viewcontrol(ddl)" >
+                    <i class="fa fa-info-circle"></i>
+                </span>
+                </p>
+                <div *cdkDragPlaceholder class="field-placeholder"></div>
+            </div>
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel style="margin-top:10px">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Text Box
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div  cdkDropList
+            id="todoList"
+            [cdkDropListData]="controls.TextBox"
+            cdkDropListConnectedTo="doneList"
+            [cdkDropListEnterPredicate]="noReturnPredicate"
+            
+            >
+            <div *ngFor="let text of controls.TextBox" [cdkDragData]="text" cdkDrag  [cdkDragDisabled]="!isDraggable">
+                <p >{{text.name}}
+                    <span (click)="viewcontrol(text)" style="float:right">
+                        <i class="fa fa-info-circle"></i>
+                    </span>
+                </p>
+                <div *cdkDragPlaceholder class="field-placeholder"></div>
+            </div>
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel style="margin-top:10px">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Date
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div  cdkDropList
+            id="todoList"
+            [cdkDropListData]=" controls.date"
+            cdkDropListConnectedTo="doneList"
+            [cdkDropListEnterPredicate]="noReturnPredicate"
+            
+            >
+            <div *ngFor="let dt of controls.date" [cdkDragData]="dt" cdkDrag  [cdkDragDisabled]="!isDraggable">
+                <p style="float:left">{{dt.name}}
+                    <span (click)="viewcontrol(dt)" >
+                        <i class="fa fa-info-circle"></i>
+                    </span>
+                </p>
+                <div *cdkDragPlaceholder class="field-placeholder"></div>
+            </div>
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel style="margin-top:10px">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    labels
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div  cdkDropList
+            id="todoList"
+            [cdkDropListData]="controls.label"
+            cdkDropListConnectedTo="doneList"
+            [cdkDropListEnterPredicate]="noReturnPredicate"
+            
+            >
+            <div *ngFor="let lbl of controls.label" [cdkDragData]="lbl" cdkDrag  [cdkDragDisabled]="!isDraggable">
+                <p >{{lbl.name}}
+                    <span (click)="viewcontrol(lbl)" >
+                        <i class="fa fa-info-circle"></i>
+                    </span>
+                </p>
+                <div *cdkDragPlaceholder class="field-placeholder"></div>
+            </div>
+            </div>
+        </mat-expansion-panel>
+
+
+    </mat-accordion> 
+    <!-- <div *ngFor="let ddl of controls.dropdown" [cdkDragData]="ddl" cdkDrag   [cdkDragDisabled]="!isDraggable">
+        <p >{{ddl.name}}
+        <span (click)="viewcontrol(ddl)" >
+            <i class="fa fa-info-circle"></i>
+        </span>
+        </p>
+        <div *cdkDragPlaceholder class="field-placeholder"></div>
+       
+    </div> -->
