@@ -98,3 +98,26 @@ export const controls = {
     },
   ],
 };
+
+
+export const PreDefinedControls =  [
+    {
+      name: "taxclass",
+      isRequired: true,
+      Type: "dropdown",
+      controlType: 3,
+    },
+    {
+      name: "taxcode",
+      isRequired: true,
+      Type: "dropdown",
+      controlType: 3,
+    },
+    {
+      name: "mfr auto complete",
+      isRequired: true,
+      Type: "auto complete",
+      controlType: 8,
+    },
+    
+  ]

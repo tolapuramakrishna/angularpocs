@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WjGridModule } from '@grapecity/wijmo.angular2.grid';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SharedLibraryModule } from 'shared-library';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -12,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,BrowserAnimationsModule,
     AppRoutingModule,
-    WjGridModule
+ SharedLibraryModule
   ],
   providers: [],
   bootstrap: [AppComponent]

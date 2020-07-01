@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'editor-rightpanel',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./editor-rightpanel.component.css']
 })
 export class EditorRightpanelComponent implements OnInit {
-
+@Input() selectedControl:any
   constructor() { }
 
   ngOnInit() {

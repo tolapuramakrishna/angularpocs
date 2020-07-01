@@ -15,7 +15,7 @@ import { ControlPropertiesViewComponent } from './components/control-properties-
 import { HeaderDetailsComponent } from './components/form-editor/header-details/header-details.component';
 import { AddCategoryModalComponent } from './components/add-category-modal/add-category-modal.component';
 import { FieldLibraryIndexComponent } from './components/field-library-index/field-library-index.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material';
 import { FormControlService } from './services/form-control.service';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DragDropModule } from '@angular/cdk/drag-drop';

@@ -1,6 +1,14 @@
-    <h4>Field Library</h4>
+    
+   <div class="row">
+       <div class="col-sm-6">
+           <h5>Custom Controls</h5>
+       </div>
+       <div class="col-sm-6">
+        <button (click)="Addcontrol()">Add Control</button>
+       </div>
+
+   </div>
    
-    <button (click)="Addcontrol()">Add Control</button>
     <mat-accordion *ngIf="controls">
         <mat-expansion-panel style="margin-top:10px">
             <mat-expansion-panel-header>

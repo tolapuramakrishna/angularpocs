@@ -12,9 +12,26 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" cdkDropListGroup>
         <div class="col-sm-3 p-0">
             <div class="field-library">
+                <div>
+                    <h5>PreDefined controls</h5>
+                    <div  cdkDropList
+                    id="predefined_list"
+                    cdkDropListConnectedTo="doneList"
+                    
+                     [cdkDragData]="ctrl" cdkDrag   [cdkDragDisabled]="!isDraggable"
+                     *ngFor="let ctrl of preDefinedList"
+                     >
+                        <p >{{ctrl.name}}
+                        <span (click)="viewcontrol(ctrl)" >
+                            <i class="fa fa-info-circle"></i>
+                        </span>
+                        </p>
+                        
+                    </div>
+                </div>
                 <ng-container>
                     <field-library [controls]="controlsList" [isDraggable]="isDraggable"></field-library>
                 </ng-container>
@@ -31,19 +48,53 @@
         <div class="col-sm-6 ">
             <form-header></form-header>
             <br />
-            <form-linedetails [layoutList]="layoutList"></form-linedetails>
-           
-                <div cdkDropList id="doneList" class=" draggable-block"
-                    (cdkDropListDropped)="drop($event)">
+            <form-linedetails [layoutList]="layoutList" [activeCtrl]="selectedControl" (onselected)="onselected($event)"
+               (rowLayoutEvent)="onrowLayoutEvent($event)" (ctrlevent)="onCtrlOptions($event)" (droppedemit)="onReplaced($event) "></form-linedetails>
 
-                    <div *cdkDragPlaceholder class="field-placeholder">drop here</div>
+            <!-- option to make row segregation-->
+
+            <div *ngIf="divisionArr.length==0" class="draggable-block m-auto">
+
+                <div class="text-center" *ngIf="divisionArr.length==0 && !divisionFlag">
+                    <span (click)="showdivision()">click here</span>
+                </div>
+                <div class="transparentFullBg" *ngIf="divisionFlag" (click)="divisionFlag=false"></div>
+                <div class="division-content" *ngIf="divisionFlag">
+                    <div class="division-block" (click)="divide(1)">
+                        <div></div>
+
+                    </div>
+                    <div class="division-block" (click)="divide(2)">
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div class="division-block" (click)="divide(3)">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
 
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" *ngIf="divisionArr.length && checkAllempty()">
+                    <i class="fa fa-wrench" (click)="showdivision()"></i>
+                </div>
+                <div *ngFor="let arr of divisionArr;let i= index "
+                    [ngClass]="{'col-sm-4':divisionArr.length ==3,'col-sm-6':divisionArr.length ==2,'col-sm-12':divisionArr.length ==1}"
+                   >
+
+                    <div  cdkDropList id="doneList" class=" draggable-block" (cdkDropListDropped)="drop($event,i)">
+
+                    </div>
+
+                </div>
+            </div>
 
         </div>
 
         <div class="col-sm-3 p-0">
-            <editor-rightpanel></editor-rightpanel>
+            <editor-rightpanel [selectedControl]="selectedControl"></editor-rightpanel>
         </div>
     </div>
 </div>

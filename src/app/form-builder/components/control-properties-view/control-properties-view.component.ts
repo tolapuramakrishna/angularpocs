@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  ,Inject, Input, Optional } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'control-properties-view',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ControlPropertiesViewComponent implements OnInit {
 
-  constructor() { }
+  @Input() selectedControl:any
+  constructor(
+    @Optional() @Inject(MAT_DIALOG_DATA) dialogData: any,
+    @Optional() public dialogRef: MatDialogRef<ControlPropertiesViewComponent>,
+    // @Inject(MAT_DIALOG_DATA) public data: any
+    ) { }
 
   ngOnInit() {
   }
-
+  close() {
+    //this.dialogRef.close();
+}
 }

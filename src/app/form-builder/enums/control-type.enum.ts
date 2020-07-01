@@ -5,5 +5,6 @@ export enum ControlType {
     multiDropdown=4,
     textarea=5,
     datepicker=6,
-    label=7
+    label=7,
+    autocomplte=8
 }

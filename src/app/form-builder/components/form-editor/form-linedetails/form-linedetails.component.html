@@ -1,46 +1,95 @@
 <!-- {{layoutList |json}} -->
-<div class="form-linedetail" *ngFor="let data of layoutList">
+<div class="form-linedetail" *ngFor="let data of layoutList;let dataI=index">
     <div class="row">
         <!-- {{data |json}} -->
-        <div *ngFor="let item of data.control"   [ngClass]=" data.col ==1 ? 'col-sm-12' : data.col==2 ? 'col-sm-6' :'col-sm-4'">
-            <div class="example-list">
-                <!-- {{item |json}} -->
-                <ng-container [ngSwitch]="item.controlType">
+        <div class="col-sm-12" *ngIf="checkAllempty(data.control)">
+            <i class="fa fa-wrench" (click)="showdivision(dataI)"></i>
+            <i class="fa fa-trash" (click)="deleteRow(dataI)"></i>
+        </div>
+        <div class="transparentFullBg" *ngIf="divisionFlag ==dataI" (click)="divisionFlag=false"></div>
+        <div class="division-content" *ngIf="divisionFlag==dataI">
+            <div class="division-block" (click)="divide(1,dataI)">
+                <div></div>
+
+            </div>
+            <div class="division-block" (click)="divide(2,dataI)">
+                <div></div>
+                <div></div>
+            </div>
+            <div class="division-block" (click)="divide(3,dataI)">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+        </div>
+        <div *ngFor="let ctrl of data.control;let ctrilI=index"   
+            [ngClass]=" data.col ==1 ? 'col-sm-12' : data.col==2 ? 'col-sm-6' :'col-sm-4'">
+            <div class="example-list" *ngIf="ctrl" (click)="selected(ctrl,data)"
+                [ngClass]="{'active-ctrl': isActive(ctrl)}">
+                <!-- {{ctrl |json}} -->
+                <div class="ctrl-options">
+                    <i class="fa fa-pencil" (click)="onEditCtrl(ctrl,ctrilI,dataI)"></i>
+                    <i class="fa fa-trash" (click)="onDeleteCtrl(ctrl,ctrilI,dataI)"></i>
+                </div>
+                <ng-container [ngSwitch]="ctrl.controlType">
                     <ng-container *ngSwitchCase="controlType.textbox">
 
-                        <p (click)="selected(item,data)">
+                        <p>
                             textbox
                         </p>
                     </ng-container>
-               
+
                     <ng-container *ngSwitchCase="controlType.numaricTextbox">
                         <p>
                             numaricTextbox
                         </p>
                     </ng-container>
-               
-                    <ng-container *ngSwitchCase="controlType.singleDropdown">
 
-                        singleDropdown
+                    <ng-container *ngSwitchCase="controlType.singleDropdown">
+                        <p>
+                            singleDropdown
+                        </p>
                     </ng-container>
-               
+
                     <ng-container *ngSwitchCase="controlType.multiDropdown">
-                        textarea
+                        <p>
+
+                            multiDropdown
+                        </p>
                     </ng-container>
-               
+
                     <ng-container *ngSwitchCase="controlType.textarea">
-                        textarea
+                        <p>
+
+                            textarea
+                        </p>
                     </ng-container>
-               
+
                     <ng-container *ngSwitchCase="controlType.datepicker">
-                        datepicker
+                        <p>
+
+                            datepicker
+                        </p>
                     </ng-container>
-                
+
                     <ng-container *ngSwitchCase="controlType.label">
-                        label
+                        <p>
+                            label
+
+                        </p>
                     </ng-container>
                 </ng-container>
             </div>
+            
+                <div  *ngIf="!ctrl" cdkDropList id='doneList' class="draggable-block"  [cdkDropListConnectedTo]="['predefined_list','todoList']" 
+                (cdkDropListDropped)="dropped($event,ctrilI,dataI)">
+                    <div *ngFor='let dummy of [1]'>
+                        <div cdkDrag></div>
+                    </div>
+                </div>
+
+            
         </div>
 
     </div>
