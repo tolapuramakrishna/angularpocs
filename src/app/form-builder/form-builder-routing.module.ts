@@ -8,7 +8,7 @@ import { FieldLibraryIndexComponent } from './components/field-library-index/fie
 const routes: Routes = [
     {
         path: '', component: FormBuilderIndexComponent, children: [
-            { path: '', redirectTo: 'published-forms', pathMatch:'full' },
+            { path: '', redirectTo: 'form-editor', pathMatch:'full' },
             { path: 'published-forms', component: PublishedFormsGridComponent },
             { path: 'field-library', component: FieldLibraryIndexComponent },
             { path: 'form-editor', component: FormEditorComponent }

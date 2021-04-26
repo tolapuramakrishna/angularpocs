@@ -1,94 +1,156 @@
-<div class="row">
-  <div class="col-sm-12 ">
-    <div class="pull-right">
-      <button mat-icon-button (click)="colDropdown=true">
-        <mat-icon>more_vert</mat-icon>
-      </button>
+<div class="container-fluid">
+  <div class="row pt-2">
+    <div class="col-sm-6 ">
+      <h1 class="pull-right">
 
+        <strong> Super Grid
+        </strong>
+      </h1>
     </div>
-    <div class="transparentFullBg" *ngIf="colDropdown" (click)="colDropdown= false"></div>
-    <div class="cols-Dropdown" *ngIf="colDropdown">
-      <div *ngFor="let col of allColoumns">
-        <mat-checkbox [(ngModel)]="col.active" (change)="onActiveColChange(col)">
-          {{col.propName}}
-        </mat-checkbox>
+    <div class="col-sm-6 ">
+      <div class="pull-right">
+        <button mat-icon-button (click)="downloadCsv()">
+          <mat-icon>get_app</mat-icon>
+        </button>
+        <button mat-icon-button (click)="colDropdown=true">
+          <mat-icon>settings</mat-icon>
+        </button>
 
+      </div>
+      <div class="transparentFullBg" *ngIf="colDropdown" (click)="colDropdown= false"></div>
+      <div class="cols-Dropdown" *ngIf="colDropdown" id="col-list" cdkDropList [cdkDropListEnterPredicate]="duplicate"
+        (cdkDropListDropped)="listDropped($event)">
+        <h3 class="pb-1 mb-0">View/Arrange columns</h3>
+        <div class="toggle custom-slider" *ngFor="let col of allColoumns;let i=index" [cdkDragData]="col" cdkDrag
+          [cdkDragDisabled]="!col.active || i==0">
+          <mat-slide-toggle class="green" [(ngModel)]="col.active" (change)="onActiveColChange(col)">
+            {{col.propName}}
+          </mat-slide-toggle>
+          <!-- <mat-checkbox [(ngModel)]="col.active" (change)="onActiveColChange(col)">
+            {{col.propName}}
+          </mat-checkbox> -->
+          <span class="float-right cursor-move" *ngIf="col.active && i != 0">
+            <mat-icon cdkDragHandle>reorder</mat-icon>
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="data-table">
+        <table class="glowTable" #glowTable>
+          <thead>
+            <tr id="dropblock" cdkDropList cdkDropListOrientation="horizontal" [cdkDropListEnterPredicate]="duplicate"
+              (cdkDropListDropped)="dropListDropped($event)">
+
+              <th *ngFor="let col of currentDisplayCols;let i=index" class="t-head" [ngClass]="{'column-sticky':i==0}"
+                cdkDrag [cdkDragDisabled]="pressed || i==0">
+                <span class="pr-2" *ngIf="i==0">
+                  <mat-checkbox [checked]="isAllChecked()" (change)="onselectAll($event)">
+
+                  </mat-checkbox>
+                </span>
+                <span (click)="sort(i)">
+                  {{ col.propName }}
+                  <span class="pl-1" *ngIf="currentSortID ==i">
+                    <i class="fa" [ngClass]="checkSorted(col,i)"></i>
+                  </span>
+                  <span class="ui-column-resizer" (mousedown)="onResizeColumn($event,i)"
+                    *ngIf="i != currentDisplayCols.length && i!=0">
+                  </span>
+                </span>
+
+
+              </th>
+
+            </tr>
+          </thead>
+          <tbody class="glowTableBody">
+            <tr *ngFor="let rowData of renderedData">
+
+              <td *ngFor="let col of currentDisplayCols;let i=index" class="ui-resizable-column"
+                [ngClass]="{'column-sticky':i==0}">
+                <ng-container [ngSwitch]="col.propKey">
+                  <ng-container *ngSwitchCase="'orderDesc'">
+                    <div class="check-box-td">
+                      <mat-checkbox [(ngModel)]="rowData.checked">
+
+                      </mat-checkbox>
+                    </div>
+                    <div class="order-desc">
+                      {{rowData?.HeaderData.OrderDescription}}
+                    </div>
+                    <div class="icons pull-right"> <i class="fa fa-commenting-o"></i> <i class="fa fa-paperclip"></i>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'orderId'">
+                    {{rowData.HeaderData.OrderId}}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'orderStatus'">
+                    {{rowData.HeaderData.HeaderStatus}}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'supplier'">
+                    {{rowData.HeaderData.SupplierName ? rowData.HeaderData.SupplierName : 'NA'}}
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="'orderTracking'">
+                    {{rowData.HeaderData.OrderTrackingId}}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'location'">
+                    {{rowData?.HeaderData.LocationName}}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'item'">
+                    {{rowData?.HeaderData.ItemName}}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'createdDate'">
+                    {{rowData?.HeaderData.StrCreatedDate}}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'total'">
+                    {{rowData?.HeaderData.grandTotal }}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'currency'">
+                    {{rowData?.HeaderData.CurrencyCode}}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'podate'">
+                    {{rowData?.HeaderData.StrCreatedDate}}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'extend'">
+                    {{rowData?.HeaderData.grandTotal }}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'currency'">
+                    {{rowData?.HeaderData.CurrencyCode}}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'reqdate'">
+                    {{rowData?.HeaderData.StrCreatedDate}}
+                  </ng-container>
+
+                  <ng-container *ngSwitchCase="'uom'">
+                    {{rowData?.HeaderData.uom}}
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'shipped'">
+                    {{rowData?.HeaderData.shipped}}
+                  </ng-container>
+                </ng-container>
+
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
       </div>
 
     </div>
-  </div>
-</div>
+    <div class="col-sm-12">
+      <div class=" pagination-center pt-3">
+        <pagination [boundaryLinks]="true" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage"
+          [(ngModel)]="CurrentPage" (pageChanged)="pageChanged($event)" previousText="&lsaquo;" nextText="&rsaquo;"
+          firstText="&laquo;" lastText="&raquo;">
 
-<div class="row">
-  <div class="col-sm-12">
-    <div class="data-table">
-      <table class="glowTable" #glowTable>
-        <thead>
-          <tr id="dropblock" cdkDropList cdkDropListOrientation="horizontal" [cdkDropListEnterPredicate]="duplicate"
-          (cdkDropListDropped)="dropListDropped($event)"  >
-            <th *ngFor="let col of currentDisplayCols;let i=index" class="t-head" [ngClass]="{'column-sticky':i==0}"
-              cdkDrag [cdkDragDisabled]="pressed || i==0" 
-              (click)="sort(i)"> 
-              {{ col.propName }}
-              <span *ngIf="currentSortID >-1"><i class="fa" [ngClass]="checkSorted(col,i)"></i></span>
-              <span class="ui-column-resizer" (mousedown)="onResizeColumn($event,i)"
-                *ngIf="i != currentDisplayCols.length && i!=0">
-              </span>
-
-            </th>
-
-          </tr>
-        </thead>
-        <tbody class="glowTableBody">
-          <tr *ngFor="let rowData of renderedData">
-            <td *ngFor="let col of currentDisplayCols;let i=index" class="ui-resizable-column"
-              [ngClass]="{'column-sticky':i==0}">
-              <ng-container [ngSwitch]="col.propKey">
-                <ng-container *ngSwitchCase="'orderDesc'">
-                  {{rowData?.HeaderData.OrderDescription}}
-                </ng-container>
-                <ng-container *ngSwitchCase="'orderId'">
-                  {{rowData.HeaderData.OrderId}}
-                </ng-container>
-                <ng-container *ngSwitchCase="'orderStatus'">
-                  {{rowData.HeaderData.HeaderStatus}}
-                </ng-container>
-                <ng-container *ngSwitchCase="'supplier'">
-                  {{rowData.HeaderData.SupplierName ? rowData.HeaderData.SupplierName : 'NA'}}
-                </ng-container>
-
-                <ng-container *ngSwitchCase="'orderTracking'">
-                  {{rowData.HeaderData.OrderTrackingId}}
-                </ng-container>
-                <ng-container *ngSwitchCase="'location'">
-                  {{rowData?.HeaderData.LocationName}}
-                </ng-container>
-                <ng-container *ngSwitchCase="'item'">
-                  {{rowData?.HeaderData.ItemName}}
-                </ng-container>
-                <ng-container *ngSwitchCase="'createdDate'">
-                  {{rowData?.HeaderData.StrCreatedDate}}
-                </ng-container>
-                <ng-container *ngSwitchCase="'total'">
-                  {{rowData?.HeaderData.grandTotal }}{{rowData?.HeaderData.CurrencyCode}}
-                </ng-container>
-
-
-              </ng-container>
-
-            </td>
-          </tr>
-
-        </tbody>
-      </table>
-<div class="pagination-center pt-3">
-  <pagination [boundaryLinks]="true" [totalItems]="totalItems"
-  [itemsPerPage]="itemsPerPage"  [(ngModel)]="CurrentPage" (pageChanged)="pageChanged($event)"
-   previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;">
-
-  </pagination>
-
-</div>
+        </pagination>
+      </div>
     </div>
   </div>
 </div>

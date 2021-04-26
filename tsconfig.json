@@ -24,6 +24,24 @@
       ],
       "shared-library/*": [
         "dist/shared-library/*"
+      ],
+      "super-grid": [
+        "dist/super-grid"
+      ],
+      "super-grid/*": [
+        "dist/super-grid/*"
+      ],
+      "@xva/super-grid": [
+        "dist/xva/super-grid"
+      ],
+      "@xva/super-grid/*": [
+        "dist/xva/super-grid/*"
+      ],
+      "@xva/drodpdown": [
+        "dist/xva/drodpdown"
+      ],
+      "@xva/drodpdown/*": [
+        "dist/xva/drodpdown/*"
       ]
     }
   }

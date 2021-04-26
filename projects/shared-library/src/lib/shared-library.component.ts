@@ -7,6 +7,9 @@ import { Component, OnInit, Input } from '@angular/core';
      input text: {{text}}
     </p>
     <p>
+    input text: {{text2}}
+   </p>
+    <p>
      input id: {{id}}
     </p>
   `,
@@ -15,6 +18,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class SharedLibraryComponent implements OnInit {
 
   @Input('text') text:string;
+  @Input('text2') text2:string;
   @Input('id') id:number= 0;
   constructor() { }
 

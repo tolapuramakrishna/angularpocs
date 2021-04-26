@@ -1,21 +1,27 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedLibraryModule } from 'shared-library';
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent } from "./app.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+import { SharedLibraryModule } from "shared-library";
+import { SuperGridComponent } from './dynamic-grid/super-grid/super-grid.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { FormsModule } from "@angular/forms";
+//import { MatDropdownModule } from "ngx-mat-dropdown";
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent, SuperGridComponent, UserDetailsComponent],
   imports: [
-    BrowserModule,BrowserAnimationsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
- SharedLibraryModule
+    SharedLibraryModule,
+    FormsModule
+  //  MatDropdownModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

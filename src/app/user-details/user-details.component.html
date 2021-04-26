@@ -1,0 +1,16 @@
+
+<input [(ngModel)]="filterTxt"  />
+<table>
+  <tr>
+    <td>User name</td>
+    <td>Age</td>
+    <td>hobbies</td>
+  </tr>
+  <tr *ngFor="let user of userList">
+    <td>{{user.username}}</td>
+    <td>{{user.age}}</td>
+    <td>
+      <span *ngFor="let hobbie of user.hobbies" [style.color]="isHighlight(hobbie)? 'yellow':''">{{hobbie}}</span>,
+    </td>
+  </tr>
+</table>

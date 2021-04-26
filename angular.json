@@ -168,6 +168,111 @@
           }
         }
       }
+    },
+    "super-grid": {
+      "root": "projects/super-grid",
+      "sourceRoot": "projects/super-grid/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/super-grid/tsconfig.lib.json",
+            "project": "projects/super-grid/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/super-grid/src/test.ts",
+            "tsConfig": "projects/super-grid/tsconfig.spec.json",
+            "karmaConfig": "projects/super-grid/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/super-grid/tsconfig.lib.json",
+              "projects/super-grid/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@xva/super-grid": {
+      "root": "projects/xva/super-grid",
+      "sourceRoot": "projects/xva/super-grid/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/xva/super-grid/tsconfig.lib.json",
+            "project": "projects/xva/super-grid/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/xva/super-grid/src/test.ts",
+            "tsConfig": "projects/xva/super-grid/tsconfig.spec.json",
+            "karmaConfig": "projects/xva/super-grid/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/xva/super-grid/tsconfig.lib.json",
+              "projects/xva/super-grid/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "@xva/drodpdown": {
+      "root": "projects/xva/drodpdown",
+      "sourceRoot": "projects/xva/drodpdown/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/xva/drodpdown/tsconfig.lib.json",
+            "project": "projects/xva/drodpdown/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/xva/drodpdown/src/test.ts",
+            "tsConfig": "projects/xva/drodpdown/tsconfig.spec.json",
+            "karmaConfig": "projects/xva/drodpdown/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/xva/drodpdown/tsconfig.lib.json",
+              "projects/xva/drodpdown/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "angular-pocs"

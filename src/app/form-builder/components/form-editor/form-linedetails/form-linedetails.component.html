@@ -1,7 +1,6 @@
-<!-- {{layoutList |json}} -->
+
 <div class="form-linedetail" *ngFor="let data of layoutList;let dataI=index">
     <div class="row">
-        <!-- {{data |json}} -->
         <div class="col-sm-12" *ngIf="checkAllempty(data.control)">
             <i class="fa fa-wrench" (click)="showdivision(dataI)"></i>
             <i class="fa fa-trash" (click)="deleteRow(dataI)"></i>
@@ -93,9 +92,5 @@
         </div>
 
     </div>
-    <!-- <div class="row">
-        <div class="col-sm-12">
-
-        </div>
-    </div> -->
+   
 </div>
