@@ -1,0 +1,71 @@
+<div class="row">
+    <div class="col-sm-3">
+        <h3 class="app-hr-txt"> {{'lbl_approval_hierarchy'|translate}}</h3>
+    </div>
+    <div class="col-sm-9">
+        <div class="fixed-btn-list pull-right">
+            <button class="buttonClass rdbutton-noborder " (click)="onResetZoom()">  {{'Reset' |translate}} {{'lbl_zoom'|translate}}</button>
+            <!--<button class="buttonClass rdbutton-noborder  " *ngIf="disableDynamicAppChain" (click)="onFirstNode($event)" [disabled]="checkDollerlevel() == 0 ? true :false">{{'lbl_add_first_level'|translate}}</button>-->
+            <button class="buttonClass btn-primary  " *ngIf="disableDynamicAppChain" (click)="onSave()" [disabled]="changeCountInApproverChain == 0 ? true :false">{{'Update' | translate }}            </button>
+            <!--<button class="btn btn-sm btn-secondary " (click)="OnLastLevl()">Add Last </button>-->
+            <span class="float-right">
+
+                <i class="fa fa-times" (click)="close.emit()"></i>
+            </span>
+        </div>
+    </div>
+</div>
+<!--<div class="row">
+    <div class="col-sm-12">
+        <p style="font-style:italic;padding-top: 10px;color:#9e9e9e;">{{'lbl_As_per_the_policy_minimum'|translate}}<span style="color:#ff2200;display:inline-block;padding:0 3px;">{{SupplierPolicyRule.MinimumsupplierSelection}} {{'SUPPLIERS'|translate}}</span> {{'lbl_required_any_purchase'|translate}} {{SupplierPolicyRule.Amount}} USD {{'lbl_or_above'|translate}}.</p>
+    </div>
+</div>-->
+<div class="row ">
+    <div class="col-sm-12">
+        <div class="approval-chain">
+        <div #panel >
+            <approval-level-hierarchy [treelist]="wf.approverList" [disableDynamicAppChain]="disableDynamicAppChain" [workFlowId]="wf.WorkflowID" *ngFor="let wf of currentlySelectedTree;"></approval-level-hierarchy>
+
+        </div>
+
+        </div>
+    </div>
+
+</div>
+<div class="transparentFullBg" *ngIf="overlay" (click)="onClose()"></div>
+<div class="add-approver-box" *ngIf="overlay" [style.top.px]="topPos" [style.right.px]="leftPos" >
+    
+        <div class="row ">
+            <div class="col-sm-12">
+                <!-- {{'lbl_Provide_Approver_det' | translate}} -->
+                <span class="float-right">
+
+                    <i class="fa fa-times" (click)="onClose()"></i>
+                </span>
+
+            </div>
+        </div>
+    
+
+        <div class="row rdPaddingTop10px form checkoutmatcss">
+            <div class="col-sm-8 ">
+               
+                <mat-form-field appearance="outline" class="mat-form-field-100">
+                    <mat-label> {{'APPROVER' |translate}} </mat-label>
+                    <input matInput [formControl]="approver" maxlength="50"  [matAutocomplete]="auto"   #inputText   >
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="autoCompleteDisplayFn">
+                        <mat-option *ngFor="let appr of filteredApproverList | async" [value]="appr" matTooltip="{{appr.Name}}">
+
+                            <span>{{appr.Name}}</span>
+
+                        </mat-option>
+                    </mat-autocomplete>
+                   
+                </mat-form-field>
+            </div>
+            <div class="col-sm-4 padding-0" style="padding-top:5px;">
+                <button class="buttonClass btn-primary" (click)="onConfirm()">{{'u_ADD'|translate}}</button>
+            </div>
+        </div>
+    
+</div>

@@ -1,0 +1,128 @@
+
+$bottom-margin: 50px;
+$line-width: 2px;
+$line-color: rgba(#FFF, 0.7);
+$line-color: black;
+$top-dashed-bg: linear-gradient(to top, transparent 50%, #b5b5b5 50%);
+
+@mixin tree-button {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.level-btn {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    top: -10px;
+    left: 1px;
+
+    &::before {
+        content: '';
+        position: absolute;
+        background: $top-dashed-bg;
+        background-size: 16px 10px, 100% 2px;
+        top: -49px;
+        transform: translateY(-100%);
+        width: 2px;
+        height: 16px;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        background: $top-dashed-bg;
+        background-size: 16px 10px, 100% 2px;
+        bottom: -10px;
+        transform: translateY(-100%);
+        width: 2px;
+        height: 25px;
+    }
+}
+
+.level-add-button {
+    width: 19px;
+    height: 19px;
+    background-color: #5286b1;
+    cursor: pointer;
+    border-radius: 20px;
+    position: absolute;
+    position: absolute;
+    bottom: 40px;
+    border-style: none;
+
+    &[disabled] {
+        cursor: not-allowed;
+    }
+
+    &:before {
+        content: "";
+        position: absolute;
+        height: 11px;
+        width: 3px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        background-color: #fff;
+    }
+
+    &:after {
+        content: "";
+        position: absolute;
+        width: 11px;
+        height: 3px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        background-color: #fff;
+    }
+}
+.trees {
+    
+    width: 100%;
+    margin: auto;
+    display: flex;
+    
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 3px 0;
+    position: relative;
+    
+
+}
+    .trees .hv-container {
+        flex-grow: 1;
+        overflow: visible;
+        justify-content: center;
+    }
+.tree-pane {
+    float: left;
+    width: 100%;
+}
+
+.no-level-btn {
+    &::before {
+        content: '';
+        position: absolute;
+        background: $top-dashed-bg;
+        background-size: 16px 10px, 100% 2px;
+        top: -42px;
+        transform: translateY(-100%);
+        width: 2px;
+        height: 30px;
+    }
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .level-add-button{
+        margin-left:-8px;
+    }
+}

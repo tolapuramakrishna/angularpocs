@@ -1,0 +1,136 @@
+﻿
+<div class="smart-form m-b50 smtmatform smOrDetail" *ngIf="OrderInfo">
+    <div class="smart-form-header">
+        <div class="row m-0">
+            <div class="col-sm-5">
+                <h3 class="smart-form-header-text">{{'labl_order_details'|translate}}</h3>
+            </div>
+            <div class="col-sm-7">
+                <div class="pull-right">
+                    <button class="buttonClass rdbutton-noborder" type="button" [routerLink]="['../requestor-dashboard']">{{'labl_shopfor_more'|translate}}</button>
+                    <button class="buttonClass btn-primary " type="button"
+                           (click)="printSummary()"
+                         >
+                        {{'labl_print_order'|translate}}
+                    </button>
+                    <!--(click)="printSummary()"
+                [useExistingCss]="true"
+                         [printStyle]="printSummary()"
+    printTitle="Order Summary"
+    printSectionId="printBody"
+    ngxPrint-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="smart-form-body smOrDetail_Body"  id="printBody">
+        <div class="row m-0">
+            <div class="col-sm-12">
+                <div class="msg_OrderPlace">
+                    
+                    {{'labl_order' |translate}}#{{OrderInfo.OrderId!=''? OrderInfo.OrderId :'-'}} {{'lbl_successfully_place'|translate}} {{OrderInfo.StrCheckoutDate!=''? OrderInfo.StrCheckoutDate :'-'}} by "{{OrderInfo.Requester.Name!=''? OrderInfo.Requester.Name :'-'}}" {{'lbl_confirmation_email_will'|translate}} "{{OrderInfo.Requester.NotificationEmailID!=null?OrderInfo.Requester.NotificationEmailID:OrderInfo.Requester.EmailID}}" {{'lbl_with_order_shortly'| translate}}.
+
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="row m-0">
+            <div class="col-sm-12">
+                <div class="msg_OrderDesc">
+                    <h4>{{'vOrderDescription'|translate}}</h4>
+                    <div class="txt">
+                        {{OrderInfo.OrderDescription!=''? OrderInfo.OrderDescription :'-'}}
+                        <!--<span *ngIf="OrderInfo.OrderDescription !=null && OrderInfo.OrderDescription.length > 250">
+                            <span *ngIf="isFull" (click)="isFull=!isFull" class="btn-more">{{'more'|translate}}</span>
+                            <span *ngIf="!isFull" (click)="isFull=!isFull" class="btn-more-less">{{'less'|translate}}</span>
+                        </span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 m-0"> 
+            <div class="row msg_AddressDiv p-0">
+                <div class="col-sm-4">
+                    <div class="address-ship">
+                        <h4>{{'ShippingAddress'|translate}}</h4>
+                        <div class="add_detail">
+                            <p2p-address-card [AddressModel]="OrderInfo.ShippingAddress"></p2p-address-card>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div *ngIf="isPCartEnabled && OrderInfo.Card">
+                        <h4>{{'labl_payment_method'|translate}}</h4>
+                        <p-card-orderinfo [Card]="OrderInfo.Card"></p-card-orderinfo>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <h4>{{'COMMENTS' |translate}}<span>{{'labl_printed_onpo'|translate}}</span></h4>
+                    <div class="add_detail">
+                        <p class="font-weight-bold">
+                            {{OrderInfo.Comments?OrderInfo.Comments:'-'}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="row m-0 bdr-mid">
+        <hr />
+    </div>-->
+
+
+        <div class="row">
+            <div class="cartSummary-form-body">
+                <div class="row">
+                    <div class="col-md-12 cartSummaryLine">
+                        <div class="panel-group cartSummaryGroup" [ngClass]="isActive? 'cartSummaryGroup-one': 'cartSummaryGroup-last'"  id="accordion" role="tablist" aria-multiselectable="true" *ngFor="let tab of OrderInfo.OrderTabs; let i = index;">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne_{{i}}" aria-expanded="true" aria-controls="collapseOne">
+                                            <label class="RFQtxt total-valuesmall"> {{tab.ModuleName|translate}} - {{tab.Code}} ({{tab.Lines.length}} {{'Items'|translate}})</label>
+                                            <label class="RFQtotal-value total-valuesmall">{{'TOTAL' |translate}}:  <span [p2pCurrencyFormatter]="getGTotal(tab.Lines)" class="orders-ststus"></span></label>
+                                        </a>
+                                        <label *ngIf="isApproverEnable(tab)" class="text-uppercase font12px add-app" (click)="viewApprover(tab)">
+                                            {{'labl_view_addapprovers'|translate}}
+                                        </label>
+                                    </h4>
+
+                                </div>
+                                <div id="collapseOne_{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <cart-summary-tab-info *ngIf="tab.isExpand" [OrderTabInfo]="tab" class="slideDown"></cart-summary-tab-info>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="clear:both;">
+
+        </div>
+
+    </div>
+</div>
+<div class="transparentFullBg" *ngIf="overlay" (click)="overlay = false;changeCountInApproverChain=0"></div>
+<div class="overLay-box" [@detailExpand]="overlay ? 'expanded' : 'collapsed'" [style.display]="overlay ?'flex':'none'" >
+    <div class="overlay-content">
+      
+        <dynamic-approval-main [list]="currentApproverChain" [masterList]="masterApproverList" [chainChanged]="changeCountInApproverChain" (add)="addApprover($event)" (save)="saveApproverChain($event)" (close)="closeChain()"></dynamic-approval-main>
+    </div>
+</div>
+<!--
+<iframe id="printing-frame" name="print_frame" src="about:blank" style="display"></iframe>
+<div  id="printBody">
+
+    <print-cart-summary [OrderInfo]="OrderInfo"></print-cart-summary>
+</div>-->

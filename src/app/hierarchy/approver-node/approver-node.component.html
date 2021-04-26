@@ -1,0 +1,23 @@
+<div class="hv-item">
+
+    <div class="hv-item-children" *ngIf="node.approverList.length > 0 ">
+        <div class="hv-item-child" [ngClass]="{'hv-first-node' :levelIndex!=levelLength-1} " *ngFor="let child of node.approverList;let index=index">
+
+            <div class="hv-item" *ngIf="child" [ngClass]="{'only-child':node.approverList.length ==1,'hv-node' : (totalSeq ==1 && node.approverList.length >1)|| levelIndex > 0 , 'right': index ==0 , 'left' :index == node.approverList.length -1}">
+                <div [ngClass]="child.id == getSelectedNodeID() ? 'simple-card-highlighted': 'simple-card-not-highlighted'" [style.background-color]="child.IsAdded? '#fff':'#F4F4F4'">
+                   
+                    <div class="node-delete" matTooltip="Remove" (click)="deleteNode(child,index)" *ngIf="child.canRemove"><i class="fa fa-times"></i></div>
+                    <button id="addbutton" class="add-button" (click)='addNextToNode(child,index,$event)' *ngIf="node.approverList.length < _approverService.maxParalledApprovers" [disabled]="!disableDynamicAppChain"></button>
+                    <div class="node-text">
+                        <i class="fa fa-user"></i> <span matTooltip="{{getHoverText(child)}}" > {{child.Approver?.Name}}</span>
+                    </div>
+                </div>
+                     <div class="node-email-block">
+                         <span matTooltip="{{child.Approver?.EmailID}}">
+                             {{child.Approver?.EmailID}}
+                         </span>
+                         </div>   
+            </div>
+        </div>
+    </div>
+</div> 

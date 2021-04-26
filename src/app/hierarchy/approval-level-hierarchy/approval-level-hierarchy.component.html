@@ -1,0 +1,12 @@
+<div class="trees">
+    <div *ngFor="let tree of treelist;let levIndex = index">
+        <div class="hv-container">
+            <approver-node [node]="tree" [disableDynamicAppChain]="disableDynamicAppChain" [levelLength]="treelist.length" [levelIndex]="levIndex" [totalSeq]="treelist.length"></approver-node>
+            <div class="level-btn" *ngIf="levIndex < treelist.length-1"
+                 [ngClass]="treelist.length <_approverService.maxSerial && tree.canAddNxtlevel ? '': 'no-level-btn'" >
+
+                <button id="addbutton" class="level-add-button" (click)="addNewLevel(tree,levIndex,$event)" *ngIf="treelist.length <_approverService.maxSerial && false " [disabled]="true"></button>
+            </div>
+        </div>
+    </div>
+</div>
